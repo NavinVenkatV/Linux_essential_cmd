@@ -1,0 +1,280 @@
+root@823a1a10de04:~# uname
+Linux
+root@823a1a10de04:~# pwd
+/root
+root@823a1a10de04:~#  cd /var/log/application
+root@823a1a10de04:/var/log/application# ls
+access.log  error.log  system.log
+root@823a1a10de04:/var/log/application# ls -l
+total 4
+-rw-r--r-- 1 root root   0 Jan 23  2025 access.log
+-r-------- 1 root root 994 Jan 23  2025 error.log
+-rw-r--r-- 1 root root   0 Jan 23  2025 system.log
+root@823a1a10de04:/var/log/application# cat error.log
+[2024-01-23 08:15:32] INFO: Application startup
+[2024-01-23 08:15:33] INFO: Loading configurations
+[2024-01-23 08:15:33] ERROR: Database connection refused on port 5433
+[2024-01-23 08:15:34] WARN: Retrying database connection...
+[2024-01-23 08:15:35] ERROR: Database connection refused on port 5433
+[2024-01-23 08:15:36] ERROR: Database connection timeout after 3 attempts
+[2024-01-23 08:15:37] WARN: Falling back to cache
+[2024-01-23 08:15:38] ERROR: Cache expired
+[2024-01-23 08:15:39] ERROR: Database connection refused on port 5433
+[2024-01-23 08:15:40] WARN: High memory usage detected: 85%
+[2024-01-23 08:15:41] ERROR: Unable to process customer request: Database unavailable
+[2024-01-23 08:15:42] ERROR: Database connection refused on port 5433
+[2024-01-23 08:15:43] FATAL: Service unhealthy
+[2024-01-23 08:15:44] INFO: Emergency shutdown initiated
+[2024-01-23 08:15:45] INFO: Saving current state
+[2024-01-23 08:15:46] ERROR: Cannot save state: Database connection refused on port 5433
+root@823a1a10de04:/var/log/application# cat error.log | grep Database
+[2024-01-23 08:15:33] ERROR: Database connection refused on port 5433
+[2024-01-23 08:15:35] ERROR: Database connection refused on port 5433
+[2024-01-23 08:15:36] ERROR: Database connection timeout after 3 attempts
+[2024-01-23 08:15:39] ERROR: Database connection refused on port 5433
+[2024-01-23 08:15:41] ERROR: Unable to process customer request: Database unavailable
+[2024-01-23 08:15:42] ERROR: Database connection refused on port 5433
+[2024-01-23 08:15:46] ERROR: Cannot save state: Database connection refused on port 5433
+root@823a1a10de04:/var/log/application# cat error.log | grep "port 5433"
+[2024-01-23 08:15:33] ERROR: Database connection refused on port 5433
+[2024-01-23 08:15:35] ERROR: Database connection refused on port 5433
+[2024-01-23 08:15:39] ERROR: Database connection refused on port 5433
+[2024-01-23 08:15:42] ERROR: Database connection refused on port 5433
+[2024-01-23 08:15:46] ERROR: Cannot save state: Database connection refused on port 5433
+root@823a1a10de04:/var/log/application# cat error.log | gref Database > error.txt
+bash: gref: command not found
+root@823a1a10de04:/var/log/application# cat error.log | grep Database > error.txt
+root@823a1a10de04:/var/log/application# ls
+access.log  error.log  error.txt  system.log
+root@823a1a10de04:/var/log/application# cat error.txt
+[2024-01-23 08:15:33] ERROR: Database connection refused on port 5433
+[2024-01-23 08:15:35] ERROR: Database connection refused on port 5433
+[2024-01-23 08:15:36] ERROR: Database connection timeout after 3 attempts
+[2024-01-23 08:15:39] ERROR: Database connection refused on port 5433
+[2024-01-23 08:15:41] ERROR: Unable to process customer request: Database unavailable
+[2024-01-23 08:15:42] ERROR: Database connection refused on port 5433
+[2024-01-23 08:15:46] ERROR: Cannot save state: Database connection refused on port 5433
+root@823a1a10de04:/var/log/application#  ls -l
+total 8
+-rw-r--r-- 1 root root   0 Jan 23  2025 access.log
+-r-------- 1 root root 994 Jan 23  2025 error.log
+-rw-r--r-- 1 root root 529 Dec 15 20:18 error.txt
+-rw-r--r-- 1 root root   0 Jan 23  2025 system.log
+root@823a1a10de04:/var/log/application# cp error.txt /root/cpy_error.txt
+root@823a1a10de04:/var/log/application# ls
+access.log  error.log  error.txt  system.log
+root@823a1a10de04:/var/log/application# ls /root
+cpy_error.txt  db_response.txt  health_response.txt
+root@823a1a10de04:/var/log/application#  cat root/cpy_error.txt
+cat: root/cpy_error.txt: No such file or directory
+root@823a1a10de04:/var/log/application# cat /root/cpy_error.txt
+[2024-01-23 08:15:33] ERROR: Database connection refused on port 5433
+[2024-01-23 08:15:35] ERROR: Database connection refused on port 5433
+[2024-01-23 08:15:36] ERROR: Database connection timeout after 3 attempts
+[2024-01-23 08:15:39] ERROR: Database connection refused on port 5433
+[2024-01-23 08:15:41] ERROR: Unable to process customer request: Database unavailable
+[2024-01-23 08:15:42] ERROR: Database connection refused on port 5433
+[2024-01-23 08:15:46] ERROR: Cannot save state: Database connection refused on port 5433
+root@823a1a10de04:/var/log/application#  cat error.txt | "port 5433" 
+bash: port 5433: command not found
+root@823a1a10de04:/var/log/application# car error.txt | grep "port 5433"
+bash: car: command not found
+root@823a1a10de04:/var/log/application# ls
+access.log  error.log  error.txt  system.log
+root@823a1a10de04:/var/log/application# cat error.log | grep "port 5433"
+[2024-01-23 08:15:33] ERROR: Database connection refused on port 5433
+[2024-01-23 08:15:35] ERROR: Database connection refused on port 5433
+[2024-01-23 08:15:39] ERROR: Database connection refused on port 5433
+[2024-01-23 08:15:42] ERROR: Database connection refused on port 5433
+[2024-01-23 08:15:46] ERROR: Cannot save state: Database connection refused on port 5433
+root@823a1a10de04:/var/log/application#  cat error.log | grep "connection refused" | wc -l
+5
+root@823a1a10de04:/var/log/application# find . -name "*.conf" 
+root@823a1a10de04:/var/log/application# find / -name "*.conf"
+/usr/lib/tmpfiles.d/libselinux1.conf
+/usr/lib/tmpfiles.d/passwd.conf
+/usr/lib/x86_64-linux-gnu/gconv/gconv-modules.d/gconv-modules-extra.conf
+/usr/lib/sysctl.d/99-protect-links.conf
+/usr/lib/binfmt.d/python3.12.conf
+/usr/share/libc-bin/nsswitch.conf
+/usr/share/debconf/debconf.conf
+/etc/gai.conf
+/etc/debconf.conf
+/etc/security/pwhistory.conf
+/etc/security/namespace.conf
+/etc/security/sepermit.conf
+/etc/security/limits.conf
+/etc/security/access.conf
+/etc/security/pam_env.conf
+/etc/security/time.conf
+/etc/security/faillock.conf
+/etc/security/group.conf
+/etc/ld.so.conf
+/etc/e2scrub.conf
+/etc/nsswitch.conf
+/etc/mke2fs.conf
+/etc/ld.so.conf.d/libc.conf
+/etc/ld.so.conf.d/x86_64-linux-gnu.conf
+/etc/resolv.conf
+/etc/libaudit.conf
+/etc/sysctl.conf
+/etc/pam.conf
+/etc/xattr.conf
+/etc/sysctl.d/10-map-count.conf
+/etc/sysctl.d/10-ipv6-privacy.conf
+/etc/sysctl.d/10-kernel-hardening.conf
+/etc/sysctl.d/10-magic-sysrq.conf
+/etc/sysctl.d/10-console-messages.conf
+/etc/sysctl.d/10-zeropage.conf
+/etc/sysctl.d/10-network-security.conf
+/etc/sysctl.d/10-bufferbloat.conf
+/etc/sysctl.d/10-ptrace.conf
+/etc/host.conf
+/etc/selinux/semanage.conf
+/etc/application/db.conf
+/etc/ca-certificates.conf
+/etc/ldap/ldap.conf
+root@823a1a10de04:/var/log/application# find / -name "*.conf" | grep db
+/etc/application/db.conf
+root@823a1a10de04:/var/log/application# find / -name "*.conf" | grep db
+/etc/application/db.conf
+root@823a1a10de04:/var/log/application# find / -name "*.conf*" | grep db
+/etc/application/db.conf.backup
+/etc/application/db.conf
+root@823a1a10de04:/var/log/application# cd /etc/application
+root@823a1a10de04:/etc/application# ls
+db.conf  db.conf.backup
+root@823a1a10de04:/etc/application# diff db.conf db.conf.backup
+2c2
+< database_port=5433
+---
+> database_port=5432
+root@823a1a10de04:/etc/application# curl navinvenkat.xyz
+Redirecting...root@823a1a10de04:/etc/application# ls
+db.conf  db.conf.backup
+root@823a1a10de04:/etc/application# curl https:/navinvenkat.xyz/
+Redirecting...
+root@823a1a10de04:/etc/application# https://navinvenkat.xyz/
+bash: https://navinvenkat.xyz/: No such file or directory
+root@823a1a10de04:/etc/application# curl https://navinvenkat.xyz
+Redirecting...
+root@823a1a10de04:/etc/application# curl https://google.com
+<HTML><HEAD><meta http-equiv="content-type" content="text/html;charset=utf-8">
+<TITLE>301 Moved</TITLE></HEAD><BODY>
+<H1>301 Moved</H1>
+The document has moved
+<A HREF="https://www.google.com/">here</A>.
+</BODY></HTML>
+root@823a1a10de04:/etc/application# curl -vL https://navinvenkat.xyz
+* Host navinvenkat.xyz:443 was resolved.
+* IPv6: (none)
+* IPv4: 76.76.21.21, 216.198.79.193
+*   Trying 76.76.21.21:443...
+* Connected to navinvenkat.xyz (76.76.21.21) port 443
+* ALPN: curl offers h2,http/1.1
+* TLSv1.3 (OUT), TLS handshake, Client hello (1):
+*  CAfile: /etc/ssl/certs/ca-certificates.crt
+*  CApath: /etc/ssl/certs
+* TLSv1.3 (IN), TLS handshake, Server hello (2):
+* TLSv1.3 (IN), TLS handshake, Encrypted Extensions (8):
+* TLSv1.3 (IN), TLS handshake, Certificate (11):
+* TLSv1.3 (IN), TLS handshake, CERT verify (15):
+* TLSv1.3 (IN), TLS handshake, Finished (20):
+* TLSv1.3 (OUT), TLS change cipher, Change cipher spec (1):
+* TLSv1.3 (OUT), TLS handshake, Finished (20):
+* SSL connection using TLSv1.3 / TLS_AES_128_GCM_SHA256 / X25519 / RSASSA-PSS
+* ALPN: server accepted h2
+* Server certificate:
+*  subject: CN=navinvenkat.xyz
+*  start date: Oct 17 18:43:33 2025 GMT
+*  expire date: Jan 15 18:43:32 2026 GMT
+*  subjectAltName: host "navinvenkat.xyz" matched cert's "navinvenkat.xyz"
+*  issuer: C=US; O=Let's Encrypt; CN=R12
+*  SSL certificate verify ok.
+*   Certificate level 0: Public key type RSA (2048/112 Bits/secBits), signed using sha256WithRSAEncryption
+*   Certificate level 1: Public key type RSA (2048/112 Bits/secBits), signed using sha256WithRSAEncryption
+*   Certificate level 2: Public key type RSA (4096/152 Bits/secBits), signed using sha256WithRSAEncryption
+* TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):
+* using HTTP/2
+* [HTTP/2] [1] OPENED stream for https://navinvenkat.xyz/
+* [HTTP/2] [1] [:method: GET]
+* [HTTP/2] [1] [:scheme: https]
+* [HTTP/2] [1] [:authority: navinvenkat.xyz]
+* [HTTP/2] [1] [:path: /]
+* [HTTP/2] [1] [user-agent: curl/8.5.0]
+* [HTTP/2] [1] [accept: */*]
+> GET / HTTP/2
+> Host: navinvenkat.xyz
+> User-Agent: curl/8.5.0
+> Accept: */*
+> 
+< HTTP/2 307 
+< cache-control: public, max-age=0, must-revalidate
+< content-type: text/plain
+< date: Mon, 15 Dec 2025 20:42:31 GMT
+< location: https://www.navinvenkat.xyz/
+< server: Vercel
+< strict-transport-security: max-age=63072000
+< x-vercel-id: lhr1::6gjxs-1765831351492-a56b24475ae6
+< 
+* Ignoring the response-body
+* Connection #0 to host navinvenkat.xyz left intact
+* Issue another request to this URL: 'https://www.navinvenkat.xyz/'
+* Host www.navinvenkat.xyz:443 was resolved.
+* IPv6: (none)
+* IPv4: 216.198.79.193, 76.76.21.21
+*   Trying 216.198.79.193:443...
+* Connected to www.navinvenkat.xyz (216.198.79.193) port 443
+* ALPN: curl offers h2,http/1.1
+* TLSv1.3 (OUT), TLS handshake, Client hello (1):
+*  CAfile: /etc/ssl/certs/ca-certificates.crt
+*  CApath: /etc/ssl/certs
+* TLSv1.3 (IN), TLS handshake, Server hello (2):
+* TLSv1.3 (IN), TLS handshake, Encrypted Extensions (8):
+* TLSv1.3 (IN), TLS handshake, Certificate (11):
+* TLSv1.3 (IN), TLS handshake, CERT verify (15):
+* TLSv1.3 (IN), TLS handshake, Finished (20):
+* TLSv1.3 (OUT), TLS change cipher, Change cipher spec (1):
+* TLSv1.3 (OUT), TLS handshake, Finished (20):
+* SSL connection using TLSv1.3 / TLS_AES_128_GCM_SHA256 / X25519 / RSASSA-PSS
+* ALPN: server accepted h2
+* Server certificate:
+*  subject: CN=www.navinvenkat.xyz
+*  start date: Oct 17 10:01:02 2025 GMT
+*  expire date: Jan 15 10:01:01 2026 GMT
+*  subjectAltName: host "www.navinvenkat.xyz" matched cert's "www.navinvenkat.xyz"
+*  issuer: C=US; O=Let's Encrypt; CN=R13
+*  SSL certificate verify ok.
+*   Certificate level 0: Public key type RSA (2048/112 Bits/secBits), signed using sha256WithRSAEncryption
+*   Certificate level 1: Public key type RSA (2048/112 Bits/secBits), signed using sha256WithRSAEncryption
+*   Certificate level 2: Public key type RSA (4096/152 Bits/secBits), signed using sha256WithRSAEncryption
+* TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):
+* using HTTP/2
+* [HTTP/2] [1] OPENED stream for https://www.navinvenkat.xyz/
+* [HTTP/2] [1] [:method: GET]
+* [HTTP/2] [1] [:scheme: https]
+* [HTTP/2] [1] [:authority: www.navinvenkat.xyz]
+* [HTTP/2] [1] [:path: /]
+* [HTTP/2] [1] [user-agent: curl/8.5.0]
+* [HTTP/2] [1] [accept: */*]
+> GET / HTTP/2
+> Host: www.navinvenkat.xyz
+> User-Agent: curl/8.5.0
+> Accept: */*
+> 
+< HTTP/2 200 
+< accept-ranges: bytes
+< access-control-allow-origin: *
+< age: 1313674
+< cache-control: public, max-age=0, must-revalidate
+< content-disposition: inline
+< content-type: text/html; charset=utf-8
+< date: Mon, 15 Dec 2025 20:42:32 GMT
+< etag: "4d5f8500a35e55d79bb4532489c6e1ae"
+< server: Vercel
+< strict-transport-security: max-age=63072000
+< vary: RSC, Next-Router-State-Tree, Next-Router-Prefetch
+< x-matched-path: /
+< x-vercel-cache: HIT
+< x-vercel-id: lhr1::9k6xx-1765831352574-ca006d101a22
+< content-length: 49363
