@@ -278,3 +278,48 @@ root@823a1a10de04:/etc/application# curl -vL https://navinvenkat.xyz
 < x-vercel-cache: HIT
 < x-vercel-id: lhr1::9k6xx-1765831352574-ca006d101a22
 < content-length: 49363
+root@823a1a10de04:/etc/application# curl -I https://navinvenkat.xyz
+HTTP/2 307 
+cache-control: public, max-age=0, must-revalidate
+content-type: text/plain
+date: Mon, 15 Dec 2025 20:54:54 GMT
+location: https://www.navinvenkat.xyz/
+server: Vercel
+strict-transport-security: max-age=63072000
+x-vercel-id: lhr1::lsjlb-1765832094671-b3581dafe25f
+
+root@823a1a10de04:/etc/application# curl -I http://localhost:5432
+HTTP/1.1 200 OK
+Server: PostgreSQL
+Content-Type: application/json
+root@823a1a10de04:/etc/application# curl -I http://localhost:5433
+curl: (7) Failed to connect to localhost port 5433 after 4 ms: Couldn't connect to server
+root@823a1a10de04:/etc/application# find --name "*.conf*" 
+find: unknown predicate `--name'
+root@823a1a10de04:/etc/application# find -name "*.conf*" 
+./db.conf.backup
+./db.conf
+root@823a1a10de04:/etc/application# vim db.conf
+root@823a1a10de04:/etc/application# ls -l
+total 8
+-rw-r--r-- 1 root root 119 Jan 23  2025 db.conf
+-rw-r--r-- 1 root root 119 Jan 23  2025 db.conf.backup
+root@823a1a10de04:/etc/application# chmod 777db.conf
+chmod: missing operand after '777db.conf'
+Try 'chmod --help' for more information.
+root@823a1a10de04:/etc/application# chmod 777 db.conf 
+root@823a1a10de04:/etc/application# ls -l
+total 8
+-rwxrwxrwx 1 root root 119 Jan 23  2025 db.conf
+-rw-r--r-- 1 root root 119 Jan 23  2025 db.conf.backup
+root@823a1a10de04:/etc/application# chmod 666 db.conf
+root@823a1a10de04:/etc/application# ls -l 
+total 8
+-rw-rw-rw- 1 root root 119 Jan 23  2025 db.conf
+-rw-r--r-- 1 root root 119 Jan 23  2025 db.conf.backup
+root@823a1a10de04:/etc/application# vim db.conf
+root@823a1a10de04:/etc/application# vim db.conf
+root@823a1a10de04:/etc/application# exit
+exit
+root@823a1a10de04:~# exit
+exit
